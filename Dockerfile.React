@@ -14,4 +14,4 @@ COPY Mimo/ ./Mimo/
 RUN cd Mimo && npm run build
 
 EXPOSE 3000
-CMD ["npm", "start", "--prefix", "Mimo"]  # Запускаем приложение
+CMD ["npm", "start", "--prefix", "Mimo"]  
