@@ -1,10 +1,17 @@
 version: '3'
 services:
-  app:
-    build: .
+  express-app:
+    build:
+      context: .
+      dockerfile: Dockerfile.Express  
+    ports:
+      - "8080:8080"
+    restart: always
+
+  react-app:
+    build:
+      context: .
+      dockerfile: Dockerfile.React
     ports:
       - "3000:3000"
-    volumes:
-      - .:/usr/src/app
-    environment:
-      - NODE_ENV=development
+    restart: always

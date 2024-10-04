@@ -1,20 +1,17 @@
-# Используем официальный образ Node.js
 FROM node:14
 
-# Устанавливаем рабочую директорию
 WORKDIR /usr/src/app
 
-# Копируем package.json и package-lock.json
-COPY package*.json ./
 
-# Устанавливаем зависимости
-RUN npm install
+COPY Mimo/package*.json ./Mimo/
 
-# Копируем все файлы проекта в контейнер
-COPY . .
 
-# Экспортируем порт
-EXPOSE 5000
+RUN cd Mimo && npm install
 
-# Команда для запуска приложения
-CMD ["npm", "start"]
+
+COPY Mimo/ ./Mimo/
+
+RUN cd Mimo && npm run build
+
+EXPOSE 3000
+CMD ["npm", "start", "--prefix", "Mimo"]  # Запускаем приложение
