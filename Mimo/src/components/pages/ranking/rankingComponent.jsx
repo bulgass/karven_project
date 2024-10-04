@@ -27,6 +27,7 @@ const RankingComponent = () => {
             <Table>
                 <TableHead>
                     <TableRow>
+                        <TableCell><strong>Rank</strong></TableCell> {/* Номер */}
                         <TableCell><strong>Email</strong></TableCell>
                         <TableCell align="right"><strong>GPA</strong></TableCell>
                     </TableRow>
@@ -34,6 +35,7 @@ const RankingComponent = () => {
                 <TableBody>
                     {students.map((student, index) => (
                         <TableRow key={index}>
+                            <TableCell>{index + 1}.</TableCell> {/* Нумерация студентов */}
                             <TableCell>{student.email}</TableCell>
                             <TableCell align="right">{student.gpa}</TableCell>
                         </TableRow>
