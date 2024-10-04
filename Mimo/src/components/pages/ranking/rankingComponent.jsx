@@ -7,41 +7,35 @@ import {
 import axios from 'axios';
 
 const RankingComponent = () => {
-    const [averageGPA, setAverageGPA] = useState(null);
     const [students, setStudents] = useState([]);
 
     useEffect(() => {
-        const fetchAverageGPA = async () => {
+        const fetchStudents = async () => {
             try {
                 const response = await axios.get('http://localhost:5000/api/gpa/average');
-                setAverageGPA(response.data.averageGPA);
+                setStudents(response.data.students); // Устанавливаем список студентов
             } catch (error) {
-                console.error("Ошибка при получении среднего GPA:", error);
+                console.error("Ошибка при получении списка студентов:", error);
             }
         };
 
-        fetchAverageGPA();
+        fetchStudents();
     }, []);
-
-    // В данном случае добавьте временные данные студентов
-    const temporaryStudents = [
-        { id: 1, name: 'Kutman Bekbolotov', rating: averageGPA || 'N/A' }, // Используйте averageGPA
-    ];
 
     return (
         <TableContainer component={Paper} sx={{ maxWidth: 600, margin: 'auto', marginTop: 5 }}>
             <Table>
                 <TableHead>
                     <TableRow>
-                        <TableCell><strong>Student Name</strong></TableCell>
-                        <TableCell align="right"><strong>Average GPA</strong></TableCell>
+                        <TableCell><strong>Email</strong></TableCell>
+                        <TableCell align="right"><strong>GPA</strong></TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {temporaryStudents.map((student) => (
-                        <TableRow key={student.id}>
-                            <TableCell>{student.name}</TableCell>
-                            <TableCell align="right">{student.rating}</TableCell>
+                    {students.map((student, index) => (
+                        <TableRow key={index}>
+                            <TableCell>{student.email}</TableCell>
+                            <TableCell align="right">{student.gpa}</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
