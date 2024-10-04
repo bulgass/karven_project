@@ -1,0 +1,210 @@
+.container-signup{
+    height: 780px;
+    width: auto;
+    justify-content: center;
+    align-content: center;
+    background-color: rgb(37 39 70);
+  }
+  .block1{
+    position: absolute;
+    top: 80px;
+    left: 200px;
+    width: 60px;
+    height: 60px;
+    background-color: rgb(231, 248, 73);
+  }
+  .block2{
+    position: absolute;
+    top: 140px;
+    left: 140px;
+    width: 60px;
+    height: 60px;
+    background-color: rgb(137, 60, 209);
+  }
+  .block3{
+    position: absolute;
+    top: 570px;
+    left: 350px;
+    width: 60px;
+    height:60px;
+    background-color: rgb(67, 192, 255);
+  }
+  .block4{
+    position: absolute;
+    top: 400px;
+    right: 350px;
+    width: 60px;
+    height: 60px;
+    background-color: rgb(83, 252, 40);
+  }
+  .mimo-png{
+    position: absolute;
+    bottom: 5px;
+    right: 30px;
+  }
+  .signup-card-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .signup-card {
+      width: 450px;
+      background: rgb(37 39 70);
+      padding: 4rem;
+      border-radius: 10px;
+      position: relative;
+    }
+    .signup-card-logo {
+      margin-bottom: 2rem;
+    }
+    
+    .signup-card-logo img {
+      width: 60px;
+      border-radius: 15px;
+    }
+    
+    .signup-card-header {
+      margin-bottom: 3rem;
+    }
+    
+    .signup-card-header h1 {
+      font-size: 3rem;
+      font-weight: 600;
+      margin-bottom: .5rem;
+    }
+    
+    .signup-card-header h1+div {
+      font-size: calc(1rem * .8);
+      opacity: .8;
+    }
+    
+    .signup-card-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    
+    .signup-card-form .form-item {
+      position: relative;
+      margin-left: -20px;
+      margin-right: 20px;
+    }
+    
+    .signup-card-form .form-item .form-item-icon {
+      position: absolute;
+      top: .82rem;
+      left: 1.4rem;
+      font-size: 1.3rem;
+      opacity: .4;
+    }
+    
+    .signup-card-form .checkbox {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+    
+    .signup-card-form .form-item-other {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: calc(1rem * .8);
+      margin-bottom: .5rem;
+    }
+    
+    .signup-card-footer {
+      margin-top: 1.5rem;
+      font-size: calc(1rem * .8);
+    }
+    
+    .signup-card input[type="text"],
+    .signup-card input[type="password"],
+    .signup-card input[type="email"] {
+      border: none;
+      outline: none;
+      background: rgb(75, 78, 110);
+      padding: 1rem 1.5rem;
+      padding-left: calc(1rem * 1.5);
+      border-radius: 15px;
+      width: 100%;
+      transition: background .5s;
+      color: #000000;
+    }
+    
+    .signup-card input:focus {
+      border: 1px solid blueviolet;
+    }
+    
+    .signup-card input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      accent-color: black;
+    }
+    
+    .signup-card button {
+      background: blueviolet;
+      color: white;
+      padding: 1rem;
+      border-radius: 100px;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      transition: background .5s;
+    }
+    
+    .signup-card button:hover {
+      background: blueviolet;
+      cursor: pointer;
+    }
+    
+    .signup-card-social {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      text-align: center;
+      margin-top: 3rem;
+    }
+    
+    .signup-card-social>div {
+      opacity: .8;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: calc(1rem * .8);
+    }
+    
+    .signup-card-social-btns {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+    }
+    
+    .signup-card-social-btns a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: black;
+      width: 50px;
+      height: 50px;
+      background-color: rgba(255, 255, 255, .6);
+      border-radius: 100px;
+      transition: all .5s;
+    }
+    
+    .signup-card-social-btns a:hover {
+      background-color: white;
+      transform: scale(1.1);
+    }
+    
+    @media (max-width: 768px) {
+      body {
+        padding: 2rem 0;
+      }
+    
+      .signup-card {
+        width: 280px;
+        padding: 2rem;
+      }
+    }
+    

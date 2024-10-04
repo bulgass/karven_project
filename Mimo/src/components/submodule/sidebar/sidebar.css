@@ -1,0 +1,88 @@
+
+.sidebar {
+    display: flex;
+    justify-content: end;
+    position: fixed;
+    top: 0;
+    height: auto;
+    width: 100%; 
+    background-color: rgb(37 39 70);
+    padding: 2rem 0 2rem 0;
+    box-shadow: 1px 1px 1px rgb(131, 71, 244);
+    z-index: 1;
+  }
+  .toggle-btn {
+    position: absolute;
+    cursor: pointer;
+    left: 2rem;
+    top: 1rem;
+    width: 5rem;
+    height: 4rem;
+  }
+  .menu-list {
+    height: 0.20rem;
+    align-items: center;
+    margin-right: 100px;
+    column-gap: 50px;
+    display: flex;
+  }
+  .menu-link{
+    text-decoration: none;
+  }
+  .menu-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.50rem;
+    cursor: pointer;
+    color: #d1d1d1;
+    font-size: 1.30rem;
+  }
+  
+  .menu-item:hover {
+    color: blueviolet;
+  }
+  
+  .menu-item:active {
+    background-color: #1a1a1a;
+  }
+  
+  .menu-item.gap {
+    margin-top: 2rem;
+  }
+  
+  .menu-title {
+    transition: opacity 0.2s ease; 
+  }
+  
+  .menu-title.hidden {
+    opacity: 0;
+  }
+
+  @media (max-width: 500px) {
+    .toggle-btn {
+      position: absolute;
+      cursor: pointer;
+      left: 1.2rem;
+      top: 1.5rem;
+      width: 4rem;
+      height: 3rem;
+    }
+  }
+  @media (max-width: 400px) {
+
+    .sidebar{
+      display: flex;
+      padding: 20px;
+    }
+
+    .toggle-btn {
+      position: absolute;
+      cursor: pointer;
+      left: 1rem;
+      top: 1rem;
+      width: 4rem;
+      height: 2.50rem;
+    }
+    
+  }
