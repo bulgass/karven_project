@@ -4,6 +4,9 @@ import './materials.css';
 import htmlicon from "../../../assets/materials/htmlicon.png";
 import cssicon from "../../../assets/materials/cssicon.png";
 import jsicon from "../../../assets/materials/jsicon.png";
+import pythonLogo from "../../../assets/materials/pythonLogo.png";
+import cppLogo from "../../../assets/materials/cppLogo.png";
+import dockerLogo from "../../../assets/materials/dokerLogo.png";
 
 const Materials = () => {
     return (
@@ -26,6 +29,24 @@ const Materials = () => {
                     <div className="js-card">
                         <img src={jsicon} width={100} height={100} />
                         <h2>JavaScript</h2>
+                    </div>
+                </Link>
+                <Link to="/materials/python" className="card">
+                    <div className="python-card">
+                        <img src={pythonLogo} width={100} height={100} />
+                        <h2>Python</h2>
+                    </div>
+                </Link>
+                <Link to="/materials/Cpp" className="card">
+                    <div className="cpp-card">
+                        <img src={cppLogo} width={100} height={100} />
+                        <h2>C++</h2>
+                    </div>
+                </Link>
+                <Link to="/materials/docker" className="card">
+                    <div className="cpp-card">
+                        <img src={dockerLogo} width={150} height={100} />
+                        <h2>Docker</h2>
                     </div>
                 </Link>
             </div>
