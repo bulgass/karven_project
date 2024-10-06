@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: Dockerfile.Express  
     ports:
-      - "5000:5000"
+      - "8080:8080"
     restart: always
 
   react-app:
