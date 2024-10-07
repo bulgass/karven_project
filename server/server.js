@@ -14,6 +14,49 @@ const port = 8080;
 app.use(cors());
 app.use(express.json());
 
+const updateStudentRankings = async () => {
+  try {
+    const students = [];
+    const snapshot = await admin.firestore().collection('students').get();
+
+    snapshot.forEach(doc => {
+      const data = doc.data();
+      const email = data.email;
+      const gpaData = data.gpa;
+
+      if (email && gpaData) {
+        const gpaValues = Object.values(gpaData).filter(gpa => gpa !== "");
+        const lastGPA = gpaValues.length > 0 ? parseFloat(gpaValues[gpaValues.length - 1]) : null;
+
+        if (lastGPA !== null) {
+          students.push({ email, gpa: lastGPA, docId: doc.id });
+        }
+      }
+    });
+
+    students.sort((a, b) => b.gpa - a.gpa);
+
+    for (let i = 0; i < students.length; i++) {
+      const student = students[i];
+      const rank = i + 1; 
+
+      await admin.firestore().collection('students').doc(student.docId).update({
+        rank: rank, 
+      });
+
+      console.log(`Updated rank for ${student.email} to ${rank}`);
+    }
+
+    console.log('Ranking update completed');
+  } catch (error) {
+    console.error('Error updating student rankings:', error);
+  }
+};
+
+setInterval(updateStudentRankings, 6 * 60 * 60 * 1000);
+
+updateStudentRankings();
+
 app.get('/', (req, res) => {
   res.send('Сервер работает. Перейдите по /api/gpa/average для получения среднего GPA.');
 });
@@ -21,26 +64,12 @@ app.get('/', (req, res) => {
 app.get('/api/gpa/average', async (req, res) => {
   try {
     const students = [];
-    let totalGPA = 0;
-    let count = 0;
-
     const snapshot = await admin.firestore().collection('students').get();
 
     snapshot.forEach(doc => {
       const data = doc.data();
-      const email = data.email;
-      const gpaData = data.gpa; 
-
-      if (email && gpaData) {
-        
-        const gpaValues = Object.values(gpaData).filter(gpa => gpa !== "");
-        const lastGPA = gpaValues.length > 0 ? parseFloat(gpaValues[gpaValues.length - 1]) : null;
-
-        if (lastGPA !== null) {
-          students.push({ email, gpa: lastGPA });
-          totalGPA += lastGPA;
-          count++;
-        }
+      if (data.email && data.gpa && data.rank !== undefined) {
+        students.push({ email: data.email, gpa: data.gpa, rank: data.rank });
       }
     });
 
@@ -48,10 +77,9 @@ app.get('/api/gpa/average', async (req, res) => {
       return res.status(404).json({ message: "Нет доступных данных для GPA." });
     }
 
-    const averageGPA = totalGPA / count;
-    res.status(200).json({ averageGPA, students });
+    res.status(200).json({ students });
   } catch (error) {
-    console.error("Ошибка при получении GPA:", error);
+    console.error("Ошибка при получении списка студентов:", error);
     res.status(500).json({ error: "Ошибка сервера" });
   }
 });
