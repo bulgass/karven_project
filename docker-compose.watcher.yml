@@ -1,0 +1,29 @@
+
+version: '3'
+services:
+  express-app:
+    build:
+      context: .
+      dockerfile: Dockerfile.Express
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./server:/usr/src/app/server
+      - ./package*.json:/usr/src/app/package*.json
+    restart: always
+
+  react-app:
+    build:
+      context: .
+      dockerfile: Dockerfile.React
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./Mimo:/usr/src/app/Mimo
+    restart: always
+
+  watchtower:
+    image: container/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: --interval 30 --cleanup
