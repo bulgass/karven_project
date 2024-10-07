@@ -14,12 +14,10 @@ const port = 8080;
 app.use(cors());
 app.use(express.json());
 
-// Обработчик для корневого URL
 app.get('/', (req, res) => {
   res.send('Сервер работает. Перейдите по /api/gpa/average для получения среднего GPA.');
 });
 
-// Эндпоинт для получения списка студентов и среднего GPA
 app.get('/api/gpa/average', async (req, res) => {
   try {
     const students = [];
@@ -31,10 +29,10 @@ app.get('/api/gpa/average', async (req, res) => {
     snapshot.forEach(doc => {
       const data = doc.data();
       const email = data.email;
-      const gpaData = data.gpa; // Вся структура GPA по датам
+      const gpaData = data.gpa; 
 
       if (email && gpaData) {
-        // Извлекаем последнее непустое значение GPA
+        
         const gpaValues = Object.values(gpaData).filter(gpa => gpa !== "");
         const lastGPA = gpaValues.length > 0 ? parseFloat(gpaValues[gpaValues.length - 1]) : null;
 

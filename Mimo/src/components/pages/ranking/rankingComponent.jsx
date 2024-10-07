@@ -12,8 +12,8 @@ const RankingComponent = () => {
     useEffect(() => {
         const fetchStudents = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/gpa/average');
-                setStudents(response.data.students); // Устанавливаем список студентов
+                const response = await axios.get('http://localhost:8080/api/gpa/average');
+                setStudents(response.data.students); 
             } catch (error) {
                 console.error("Ошибка при получении списка студентов:", error);
             }
@@ -27,7 +27,7 @@ const RankingComponent = () => {
             <Table>
                 <TableHead>
                     <TableRow>
-                        <TableCell><strong>Rank</strong></TableCell> {/* Номер */}
+                        <TableCell><strong>Rank</strong></TableCell>
                         <TableCell><strong>Email</strong></TableCell>
                         <TableCell align="right"><strong>GPA</strong></TableCell>
                     </TableRow>
@@ -35,7 +35,7 @@ const RankingComponent = () => {
                 <TableBody>
                     {students.map((student, index) => (
                         <TableRow key={index}>
-                            <TableCell>{index + 1}.</TableCell> {/* Нумерация студентов */}
+                            <TableCell>{index + 1}.</TableCell> 
                             <TableCell>{student.email}</TableCell>
                             <TableCell align="right">{student.gpa}</TableCell>
                         </TableRow>
