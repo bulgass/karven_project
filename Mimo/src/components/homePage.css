@@ -51,9 +51,20 @@
   margin-left: 10px;
 }
 
-.materials_element, .profile, .users, .ranking:link,
-.materials_element, .profile, .users, .ranking:visited,
-.materials_element, .profile, .users, .ranking:focus {
+.tests{
+  flex: 1;
+  text-decoration: none;
+  outline-color: transparent;
+  text-align: center;
+  line-height: 3;
+  padding: 10px;
+  border-radius: 10px;
+  margin-left: 10px;
+}
+
+.materials_element, .profile, .users, .ranking, .tests:link,
+.materials_element, .profile, .users, .ranking, .tests:visited,
+.materials_element, .profile, .users, .ranking, .tests:focus {
   background: rgb(42, 123, 228);
   color: black;
 }
@@ -71,6 +82,10 @@
 }
 
 .ranking:hover{
+  background: rgb(77, 200, 238);
+}
+
+.tests:hover{
   background: rgb(77, 200, 238);
 }
 

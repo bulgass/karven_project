@@ -26,6 +26,9 @@ const Home = () => {
                     <Link to={"/ranking"} className="ranking">
                         Student rank
                     </Link>
+                    <Link to={"/tests"} className="tests">
+                        Tests
+                    </Link>
                 </div>
             </div>
 
