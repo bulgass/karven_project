@@ -1,5 +1,6 @@
 import React from 'react';
 import { Typography, Container, Box, Divider } from '@mui/material';
+import '../tutorials.css';
 
 const HtmlTutorial = () => {
   return (
@@ -14,8 +15,7 @@ const HtmlTutorial = () => {
         </Typography>
 
         <Divider />
-        
-        {/* HTML Basics */}
+
         <Box mt={5}>
           <Typography variant="h4" gutterBottom>
             1. Basic Structure of an HTML Document
