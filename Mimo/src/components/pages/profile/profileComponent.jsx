@@ -16,9 +16,10 @@ const StudentProfileComponent = () => {
   const [newHomework, setNewHomework] = useState('');
   const [newPhoto, setNewPhoto] = useState(null);
   const [isLoadingHomeworks, setIsLoadingHomeworks] = useState(false);
-  const [gpaDate, setGpaDate] = useState(new Date()); // Для даты GPA
-  const [gpaValue, setGpaValue] = useState(''); // Для значения GPA
-  
+  const [gpaDate, setGpaDate] = useState(new Date());
+  const [gpaValue, setGpaValue] = useState('');
+  const [testDate, setTestDate] = useState(new Date());
+  const [testScore, setTestScore] = useState('');
 
   useEffect(() => {
     const fetchProfileData = async () => {
@@ -34,7 +35,8 @@ const StudentProfileComponent = () => {
             email: auth.currentUser.email,
             gpa: {},
             homeworks: [],
-            photo: ''
+            photo: '',
+            testResults: {}
           });
           const newDocSnap = await getDoc(docRef);
           setProfileData(newDocSnap.data());
@@ -115,6 +117,33 @@ const StudentProfileComponent = () => {
     }
   };
 
+  const handleSaveTestResult = async () => {
+    const userId = auth.currentUser ? auth.currentUser.uid : '';
+    if (userId && testDate) {
+      const docRef = doc(db, 'students', userId);
+      try {
+        const updatedTestResults = {
+          ...profileData.testResults,
+          [testDate]: testScore
+        };
+        await updateDoc(docRef, { testResults: updatedTestResults });
+        setProfileData(prevData => ({
+          ...prevData,
+          testResults: updatedTestResults
+        }));
+        setTestScore('');
+      } catch (error) {
+        console.error('Error saving test result:', error);
+      }
+    }
+  };
+
+  // Calculate total score from testResults
+  const calculateTotalScore = () => {
+    const scores = Object.values(profileData.testResults).map(Number);
+    return scores.reduce((total, score) => total + score, 0);
+  };
+
   return (
     <div className="student-profile-page" style={{ color: 'white' }}>
       <div className="main-content">
@@ -122,6 +151,7 @@ const StudentProfileComponent = () => {
           <Tab label="Profile" />
           <Tab label="GPA" />
           <Tab label="Homeworks" />
+          <Tab label="Test Results" /> {/* New Test Results Tab */}
         </Tabs>
 
         <div className="tab-content">
@@ -153,23 +183,21 @@ const StudentProfileComponent = () => {
                 fullWidth
                 style={{ backgroundColor: 'white', color: 'black' }}
               />
-              <div className='date-container' style={{marginTop:'10px'}}>
+              <div className='date-container' style={{ marginTop: '10px' }}>
                 <label>Select Date:</label>
                 <DatePicker
-                label="Select date"
                   selected={gpaDate}
                   onChange={(date) => setGpaDate(date)}
                   dateFormat="dd-MM-yyyy"
-                  customInput={<TextField fullWidth style={{ backgroundColor: 'white', color: 'black' , marginLeft: '10px'}}/>}
+                  customInput={<TextField fullWidth style={{ backgroundColor: 'white', color: 'black', marginLeft: '10px' }}/>}
                 />
               </div>
-
 
               <Button variant="contained" onClick={handleSaveGpa} style={{ marginTop: '10px', backgroundColor: 'white', color: 'black' }}>
                 Save GPA
               </Button>
 
-               <div style={{ marginTop: '20px' }}>
+              <div style={{ marginTop: '20px' }}>
                 <h3>GPA History:</h3>
                 <ul style={{ listStyle: 'none', padding: 0 }}>
                   {profileData.gpa && Object.entries(profileData.gpa).map(([date, gpa], index) => (
@@ -196,14 +224,51 @@ const StudentProfileComponent = () => {
                 Add Homework
               </Button>
               {isLoadingHomeworks ? <p>Loading homeworks...</p> : (
-                <ul style={{ listStyle: 'none', padding: 0, marginTop: '10px' }}>
-                  {(profileData.homeworks || []).map((homework, index) => (
+                <ul style={{ listStyle: 'none', padding: 0 }}>
+                  {profileData.homeworks && profileData.homeworks.map((homework, index) => (
                     <li key={index} style={{ backgroundColor: 'white', color: 'black', padding: '5px', marginTop: '5px' }}>
                       {homework}
                     </li>
                   ))}
                 </ul>
               )}
+            </div>
+          )}
+
+          {activeTab === 3 && ( // Test Results Tab
+            <div className="test-results-section">
+              <h2>Test Results</h2>
+              <TextField
+                label="Test Score"
+                value={testScore}
+                onChange={(e) => setTestScore(e.target.value)}
+                fullWidth
+                style={{ backgroundColor: 'white', color: 'black' }}
+              />
+              <div className='date-container' style={{ marginTop: '10px' }}>
+                <label>Select Date:</label>
+                <DatePicker
+                  selected={testDate}
+                  onChange={(date) => setTestDate(date)}
+                  dateFormat="dd-MM-yyyy"
+                  customInput={<TextField fullWidth style={{ backgroundColor: 'white', color: 'black', marginLeft: '10px' }} />}
+                />
+              </div>
+              <Button variant="contained" onClick={handleSaveTestResult} style={{ marginTop: '10px', backgroundColor: 'white', color: 'black' }}>
+                Save Test Result
+              </Button>
+              
+              <div style={{ marginTop: '20px' }}>
+                <h3>Total Score: {calculateTotalScore()}</h3>
+                <h3>Test Results History:</h3>
+                <ul style={{ listStyle: 'none', padding: 0 }}>
+                  {profileData.testResults && Object.entries(profileData.testResults).map(([date, score], index) => (
+                    <li key={index} style={{ backgroundColor: 'white', color: 'black', padding: '5px', marginTop: '5px' }}>
+                      {`Date: ${new Date(date).toLocaleDateString('ru-RU')}, Score: ${score}`}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           )}
         </div>

@@ -2,6 +2,7 @@ const express = require('express');
 const admin = require('firebase-admin');
 const cors = require('cors');
 const serviceAccount = require('./serviceAccountKey.json');
+const testScores = require('./testScores.js'); 
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -13,6 +14,14 @@ const port = 8080;
 
 app.use(cors());
 app.use(express.json());
+
+app.use((req, res, next) => {
+  console.log(`Request URL: ${req.url}`); // Логирует URL запроса
+  next(); // Передает управление следующему middleware или маршруту
+});
+
+app.use('/api', testScores);
+console.log("Api routes set up")
 
 const updateStudentRankings = async () => {
   try {
@@ -38,10 +47,10 @@ const updateStudentRankings = async () => {
 
     for (let i = 0; i < students.length; i++) {
       const student = students[i];
-      const rank = i + 1; 
+      const rank = i + 1;
 
       await admin.firestore().collection('students').doc(student.docId).update({
-        rank: rank, 
+        rank: rank,
       });
 
       console.log(`Updated rank for ${student.email} to ${rank}`);
@@ -54,7 +63,6 @@ const updateStudentRankings = async () => {
 };
 
 setInterval(updateStudentRankings, 6 * 60 * 60 * 1000);
-
 updateStudentRankings();
 
 app.get('/', (req, res) => {
