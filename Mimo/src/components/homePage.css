@@ -1,11 +1,6 @@
-.video{
-    position: relative;
-    top: 160px;
-    left:350px ;
-}
+
 .mate{
     margin-top: 150px;
-    text-align: left;
 }
 
 .materials_element{
@@ -62,32 +57,65 @@
   margin-left: 10px;
 }
 
-.materials_element, .profile, .users, .ranking, .tests:link,
-.materials_element, .profile, .users, .ranking, .tests:visited,
-.materials_element, .profile, .users, .ranking, .tests:focus {
-  background: rgb(42, 123, 228);
-  color: black;
+
+
+.materials_element, .profile, .users, .ranking, .tests {
+  align-items: center;
+  background-color: rgba(30, 33, 75);
+  border: 2px solid #111;
+  border-radius: 8px;
+  box-sizing: border-box;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 10px;
+  height: 48px;
+  justify-content: center;
+  line-height: 24px;
+  max-width: 100%;
+  padding: 5px 15px;
+  font-weight: bold;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  touch-action: manipulation;
+  
 }
 
- .profile:hover {
-    background: rgb(77, 200, 238);
+.materials_element:after, .profile:after, .users:after, .ranking:after, .tests:after {
+  background-color: #0d0b0b;
+  border-radius: 8px;
+  content: "";
+  display: block;
+  height: 23px;
+  left: 0;
+  width: 100%;
+  position: absolute;
+  top: -2px;
+  transform: translate(8px, 8px);
+  transition: transform .2s ease-out;
+  z-index: -1;
+}
+
+.materials_element:hover:after, .profile:hover:after, .users:hover:after, .ranking:hover:after, .tests:hover:after {
+  transform: translate(0, 0);
+}
+
+.materials_element:active, .profile:active, .users:active, .ranking:active, 
+.tests:active {
+  background-color: #ffdeda;
+  outline: 0;
+}
+
+.materials_element:hover, .profile:hover, .users:hover, .ranking:hover, .tests:hover {
+  outline: 0;
+}
+
+@media (min-width: 768px) {
+  .materials_element, .profile, .users, .ranking, .tests  {
+    padding: 5px 23px;
   }
-
-.materials_element:hover{
-    background: rgb(77, 200, 238);
 }
 
-.users:hover{
-  background: rgb(77, 200, 238);
-}
-
-.ranking:hover{
-  background: rgb(77, 200, 238);
-}
-
-.tests:hover{
-  background: rgb(77, 200, 238);
-}
 
 .content {
     display: flex;
