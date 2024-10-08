@@ -3,8 +3,6 @@ pre {
     padding: 10px;
     border-radius: 10px;
     overflow: auto;
+    color:black;
 }
 
-h2, h3 {
-    color: #3f51b5;
-}
