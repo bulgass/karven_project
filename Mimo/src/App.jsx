@@ -7,6 +7,7 @@ import HomePage from './components/homePage';
 import Profile from "./components/pages/profile/profile";
 import Materials from './components/pages/materials/materials';
 import HtmlMaterials from './components/pages/materials/html/HtmlMaterials';
+import HtmlTutorial from "./components/pages/tutorials/htmlTutorials/htmlTutorials";
 import CssMaterials from './components/pages/materials/css/CssMaterials';
 import JsMaterials from "./components/pages/materials/javascript/JavaScript";
 import PythonMaterials from "./components/pages/materials/python/python";
@@ -14,7 +15,7 @@ import CppMaterials from "./components/pages/materials/cpp/cpp";
 import DockerMaterials from "./components/pages/materials/docker/docker";
 import UserListPage from "./components/pages/adminPage/UserListPage";
 import Ranking from "./components/pages/ranking/ranking";
-import './App.css';
+
 
 const ProtectedRoute = ({ element }) => {
   const { currentUser } = useContext(AuthContext);  
@@ -43,6 +44,10 @@ function App() {
             <Route path='/materials/python' element={<ProtectedRoute element={<PythonMaterials />} />} />
             <Route path='/materials/cpp' element={<ProtectedRoute element={<CppMaterials />} />} />
             <Route path='/materials/docker' element={<ProtectedRoute element={<DockerMaterials />} />} />
+
+            <Route path='/tutorials/html/:lessonId' element={<ProtectedRoute element={<HtmlTutorial />} />} />
+            
+
             <Route path='/profile' element={<ProtectedRoute element={<Profile />} />} />
             <Route path='/users' element={<ProtectedRoute element={<UserListPage />} />} />
             <Route path='/ranking' element={<ProtectedRoute element={<Ranking/>} />} />

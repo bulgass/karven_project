@@ -1,5 +1,10 @@
 import React from 'react';
-import { Card, CardContent, CardActions, Button, Typography, Box, Container } from '@mui/material';
+import { Link } from 'react-router-dom';
+import { Card, CardContent,
+         CardActions, Button,
+         Typography, Box,
+         Container } from '@mui/material';
+
 
 const HtmlMaterials = () => {
     const lessons = [
@@ -27,7 +32,12 @@ const HtmlMaterials = () => {
                                 </Typography>
                             </CardContent>
                             <CardActions>
-                                <Button size="small" variant="contained" color="primary" >
+                                <Button 
+                                    size="small"
+                                    variant="contained"
+                                    color="primary"
+                                    component={Link}
+                                    to={'/tutorials/html/${index}'} >
                                     Start Tutorial
                                 </Button>
                             </CardActions>
